@@ -1,0 +1,155 @@
+@prefix met: <htt://data.met.no/terms/metapi/> .
+@prefix schema: <http://schema.org> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@prefix un: <http://www.w3.org/2007/ont/unit#> .
+@prefix vs: <http://www.w3.org/2003/06/sw-vocab-status/ns#> .
+@prefix weather: <http://purl.org/ns/Meteo#> .
+
+############################################################################
+# General description of the vocabulary
+############################################################################
+
+<https://data.met.no/terms/metapi>
+    a owl:Ontology ;
+    dct:title "The metno/metapi vocabulary"@en ,
+              "metno/metapi vokabularet"@no ;
+    dct:description "This is the definition of the terms used in the metno/metapi services." ;
+    dct:license <http://met.no/English/Data_Policy_and_Data_Services/> ;
+    owl:versionInfo "draft" .
+
+
+############################################################################
+# Classes
+############################################################################
+
+met:MetApiResponse
+    a rdfs:Class ;
+    rdfs:label "metapi response" ;
+    rdfs:comment "A response from the metno/metapi." ;
+    rdfs:subClassOf schema:CreativeWork ;
+    vs:term_status "testing"; 
+    rdfs:isDefinedBy met: .
+
+met:MetApiError
+    a rdfs:Class ;
+    rdfs:label "metapi error" ;
+    rdfs:comment "An error message from the metno/metapi." ;
+    rdfs:subClassOf schema:error ;
+    vs:term_status "testing"; 
+    rdfs:isDefinedBy met: .
+
+met:MetApiErrorDetail
+    a rdfs:Class ;
+    rdfs:label "metapi error" ;
+    rdfs:comment "An error message from the metno/metapi." ;
+    rdfs:subClassOf schema:error ;
+    vs:term_status "testing"; 
+    rdfs:isDefinedBy met: .
+
+met:MetApiDataCollection
+    a rdfs:Class ;
+    rdfs:label "metapi data collection" ;
+    rdfs:comment "A data collection returned by the metno/metapi." ;
+    rdfs:subClassOf schema:DataSet ;
+    vs:term_status "testing"; 
+    rdfs:isDefinedBy met: .
+
+
+############################################################################
+# Error Properties
+############################################################################
+
+met:errorCode
+  a rdf:Property ;
+  rdfs:label "error code" ;
+  rdfs:comment """
+    Represents the code for this error. This property value will usually represent
+    the HTTP response code. If there are multiple errors, errorCode will be the 
+    code for the first error.
+  """ ;
+  rdfs:domain met:MetApiError ;
+  vs:term_status "testing"; 
+  rdfs:isDefinedBy met: .
+
+
+met:errorMessage
+  a rdf:Property ;
+  rdfs:label "error message" ;
+  rdfs:comment """
+    A human readable message providing more details about the error. If there are 
+    multiple errors, errorMessage will be the message pertaining to the first
+    error.
+  """ ;
+  rdfs:domain met:MetApiError, met:MetApiErrorDetail ;
+  vs:term_status "testing"; 
+  rdfs:isDefinedBy met: .
+
+met:errorDetails
+  a rdf:Property ;
+  rdfs:label "error details" ;
+  rdfs:comment """
+    A collection of detailed information regarding the error being reported. If the
+    service has returned multiple errors, each element in the errorDetails 
+    collection represents a different error.
+  """ ;
+  rdfs:domain met:MetApiError ;
+  vs:term_status "testing"; 
+  rdfs:isDefinedBy met: .
+
+met:errorReason
+  a rdf:Property ;
+  rdfs:label "error reason" ;
+  rdfs:comment """
+    A unique text identifier for the error. Different from errorCode in that this 
+    is not an HTTP response code.
+  """ ;
+  rdfs:domain met:MetApiErrorDetail ;
+  vs:term_status "testing"; 
+  rdfs:isDefinedBy met: .
+
+
+############################################################################
+# Dataset Properties
+############################################################################
+
+met:source a rdf:Property ;
+  rdfs:label "data source" ;
+  rdfs:comment "The source of the data values(s)" ;
+  rdfs:domain met:MetApiDataSet ;
+  vs:term_status "testing"; 
+  rdfs:isDefinedBy met: .
+
+met:geo a rdf:Property ;
+  rdfs:label "geo" ;
+  rdfs:comment "The geographical location of the data values(s)" ;
+  rdfs:domain mt:MetApiDataSet ;
+  vs:term_status "testing"; 
+  rdfs:isDefinedBy met: .
+
+met:level a rdf:Property ;
+  rdfs:label "level" ;
+  rdfs:comment "The spatial level of the data values(s)" ;
+  rdfs:domain met:MetApiDataSet ;
+  vs:term_status "testing"; 
+  rdfs:isDefinedBy met: .
+
+met:refTime a rdf:Property ;
+  rdfs:label "reference time" ;
+  rdfs:comment "The reference time of the data values(s)" ;
+  rdfs:domain met:MetApiDataSet ;
+  rfds:range schema:DateTime ;
+  vs:term_status "testing"; 
+  rdfs:isDefinedBy met: .
+
+met:validTime a rdf:Property ;
+  rdfs:label "valid time" ;
+  rdfs:comment "The source of the data values(s)" ;
+  rdfs:domain met:MetApiDataSet ;
+  rfds:range schema:DateTime ;
+  vs:term_status "testing"; 
+  rdfs:isDefinedBy met: .
