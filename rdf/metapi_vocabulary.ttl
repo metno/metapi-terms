@@ -32,7 +32,7 @@ met:MetApiResponse
     rdfs:label "metapi response" ;
     rdfs:comment "A response from the metno/metapi." ;
     rdfs:subClassOf schema:CreativeWork ;
-    vs:term_status "testing"; 
+    vs:term_status "testing" ; 
     rdfs:isDefinedBy met: .
 
 met:MetApiError
@@ -40,7 +40,7 @@ met:MetApiError
     rdfs:label "metapi error" ;
     rdfs:comment "An error message from the metno/metapi." ;
     rdfs:subClassOf schema:error ;
-    vs:term_status "testing"; 
+    vs:term_status "testing" ; 
     rdfs:isDefinedBy met: .
 
 met:MetApiErrorDetail
@@ -48,7 +48,7 @@ met:MetApiErrorDetail
     rdfs:label "metapi error" ;
     rdfs:comment "An error message from the metno/metapi." ;
     rdfs:subClassOf schema:error ;
-    vs:term_status "testing"; 
+    vs:term_status "testing" ; 
     rdfs:isDefinedBy met: .
 
 met:MetApiDataCollection
@@ -56,8 +56,109 @@ met:MetApiDataCollection
     rdfs:label "metapi data collection" ;
     rdfs:comment "A data collection returned by the metno/metapi." ;
     rdfs:subClassOf schema:DataSet ;
-    vs:term_status "testing"; 
+    vs:term_status "testing" ; 
     rdfs:isDefinedBy met: .
+
+
+############################################################################
+# Response Properties
+############################################################################
+
+met:apiVersion
+  a rdf:Property ;
+  rdfs:label "api version" ;
+  rdfs:comment "The version of the API that generated this response." ;
+  rdfs:domain met:MetApiResponse ;
+  vs:term_status "testing" ; 
+  rdfs:isDefinedBy met: .
+
+met:license
+  a rdf:Property, schema:license ;
+  rdfs:label "license" ;
+  rdfs:comment "A license that applies to this content, typically indicated by URL." ;
+  rdfs:domain met:MetApiResponse ;
+  vs:term_status "testing" ; 
+  rdfs:isDefinedBy met: .
+
+met:createdAt
+  a rdf:Property ;
+  rdfs:label "created at" ;
+  rdfs:comment "The time at which the document was created." ;
+  rdfs:domain met:MetApiResponse ;
+  rfds:range schema:DateTime ;
+  vs:term_status "testing" ; 
+  rdfs:isDefinedBy met: .
+
+met:queryTime
+  a rdf:Property ;
+  rdfs:label "query time" ;
+  rdfs:comment "The time, in seconds, that this document took to generate." ;
+  rdfs:domain met:MetApiResponse ;
+  vs:term_status "testing" ; 
+  rdfs:isDefinedBy met: .
+
+met:currentItemCount
+  a rdf:Property ;
+  rdfs:label "current item count" ;
+  rdfs:comment "The current number of items in this result set." ;
+  rdfs:domain met:MetApiResponse ;
+  vs:term_status "testing" ; 
+  rdfs:isDefinedBy met: .
+
+met:itemsPerPage
+  a rdf:Property ;
+  rdfs:label "items per page" ;
+  rdfs:comment "The maximum number of items in a result set." ;
+  rdfs:domain met:MetApiResponse ;
+  vs:term_status "testing" ; 
+  rdfs:isDefinedBy met: .
+
+
+met:startOffset
+  a rdf:Property ;
+  rdfs:label "start offset" ;
+  rdfs:comment "The offset of the first item in the result set. The MET API uses a zero-base index." ;
+  rdfs:domain met:MetApiResponse ;
+  vs:term_status "testing" ; 
+  rdfs:isDefinedBy met: .
+
+met:totalItemCount
+  a rdf:Property ;
+  rdfs:label "total item count" ;
+  rdfs:comment """
+    The total number of items in this result set. For example, if a station has
+    1000 observations, the response may only contain 100 observations, but the
+    totalItemcount would be 100.
+  """ ;
+  rdfs:domain met:MetApiResponse ;
+  vs:term_status "testing" ; 
+  rdfs:isDefinedBy met: .
+
+met:nextLink
+  a rdf:Property ;
+  rdfs:label "next link" ;
+  rdfs:comment """
+    The next link indicates how more data can be retrieved. It points to the URI
+    to load the next set of data. It can be used in conjunction with 
+    currentItemCount, startOffet, and totalItemCount to page through the data
+    in a result set. 
+  """ ;
+  rdfs:domain met:MetApiResponse ;
+  vs:term_status "testing" ; 
+  rdfs:isDefinedBy met: .
+
+met:previousLink
+  a rdf:Property ;
+  rdfs:label "previous link" ;
+  rdfs:comment """
+    The previous link indicates how more data can be retrieved. It points to the
+    URI to load the previous set of data. It can be used in conjunction with 
+    currentItemCount, startOffet, and totalItemCount to page through the data
+    in a result set. 
+  """ ;
+  rdfs:domain met:MetApiResponse ;
+  vs:term_status "testing" ; 
+  rdfs:isDefinedBy met: .
 
 
 ############################################################################
@@ -73,7 +174,7 @@ met:errorCode
     code for the first error.
   """ ;
   rdfs:domain met:MetApiError ;
-  vs:term_status "testing"; 
+  vs:term_status "testing" ; 
   rdfs:isDefinedBy met: .
 
 
@@ -86,7 +187,7 @@ met:errorMessage
     error.
   """ ;
   rdfs:domain met:MetApiError, met:MetApiErrorDetail ;
-  vs:term_status "testing"; 
+  vs:term_status "testing" ; 
   rdfs:isDefinedBy met: .
 
 met:errorDetails
@@ -98,7 +199,7 @@ met:errorDetails
     collection represents a different error.
   """ ;
   rdfs:domain met:MetApiError ;
-  vs:term_status "testing"; 
+  vs:term_status "testing" ; 
   rdfs:isDefinedBy met: .
 
 met:errorReason
@@ -109,7 +210,7 @@ met:errorReason
     is not an HTTP response code.
   """ ;
   rdfs:domain met:MetApiErrorDetail ;
-  vs:term_status "testing"; 
+  vs:term_status "testing" ; 
   rdfs:isDefinedBy met: .
 
 
@@ -117,39 +218,93 @@ met:errorReason
 # Dataset Properties
 ############################################################################
 
-met:source a rdf:Property ;
+met:source
+  a rdf:Property ;
   rdfs:label "data source" ;
   rdfs:comment "The source of the data values(s)" ;
   rdfs:domain met:MetApiDataSet ;
-  vs:term_status "testing"; 
+  vs:term_status "testing" ; 
   rdfs:isDefinedBy met: .
 
-met:geo a rdf:Property ;
+met:geo
+  a rdf:Property ;
   rdfs:label "geo" ;
   rdfs:comment "The geographical location of the data values(s)" ;
-  rdfs:domain mt:MetApiDataSet ;
-  vs:term_status "testing"; 
+  rdfs:domain met:MetApiDataSet ;
+  vs:term_status "testing" ; 
   rdfs:isDefinedBy met: .
 
-met:level a rdf:Property ;
+met:level
+  a rdf:Property ;
   rdfs:label "level" ;
   rdfs:comment "The spatial level of the data values(s)" ;
   rdfs:domain met:MetApiDataSet ;
-  vs:term_status "testing"; 
+  vs:term_status "testing" ; 
   rdfs:isDefinedBy met: .
 
-met:refTime a rdf:Property ;
+met:refTime
+  a rdf:Property ;
   rdfs:label "reference time" ;
   rdfs:comment "The reference time of the data values(s)" ;
   rdfs:domain met:MetApiDataSet ;
   rfds:range schema:DateTime ;
-  vs:term_status "testing"; 
+  vs:term_status "testing" ; 
   rdfs:isDefinedBy met: .
 
-met:validTime a rdf:Property ;
+met:validTime
+  a rdf:Property ;
   rdfs:label "valid time" ;
   rdfs:comment "The source of the data values(s)" ;
   rdfs:domain met:MetApiDataSet ;
   rfds:range schema:DateTime ;
-  vs:term_status "testing"; 
+  vs:term_status "testing" ; 
   rdfs:isDefinedBy met: .
+
+met:validTime
+  a rdf:Property ;
+  rdfs:label "valid time" ;
+  rdfs:comment "The source of the data values(s)" ;
+  rdfs:domain met:MetApiDataSet ;
+  rfds:range schema:DateTime ;
+  vs:term_status "testing" ; 
+  rdfs:isDefinedBy met: .
+
+
+############################################################################
+# Data Value and Properties
+############################################################################
+
+met:MetApiDataValue
+    a rdfs:Class ;
+    rdfs:label "metapi data value" ;
+    rdfs:comment "A data value returned by the metno/metapi." ;
+    rdfs:subClassOf schema:DataSet ;
+    vs:term_status "testing" ; 
+    rdfs:isDefinedBy met: .
+
+met:value
+  a rdf:Property ;
+  rdfs:label "data value" ;
+  rdfs:comment "The data value" ;
+  rdfs:domain met:MetApiDataValue ;
+  vs:term_status "testing" ; 
+  rdfs:isDefinedBy met: .
+
+met:unit
+  a rdf:Property ;
+  rdfs:label "unit of measure" ;
+  rdfs:comment "The unit of measure for the data value. If not set, this is assumed (by default) to be the SI unit of the physical dimension of the value" ;
+  rdfs:domain met:MetApiDataValue ;
+  rfds:range schema:string ;
+  vs:term_status "testing" ; 
+  rdfs:isDefinedBy met: .
+
+met:confidenceCode
+  a rdf:Property ;
+  rdfs:label "confidence code" ;
+  rdfs:comment "A code which indicates the confidence of the issuing authority in the data value" ;
+  rdfs:domain met:MetApiDataValue ;
+  rfds:range schema:integer ;
+  vs:term_status "testing" ; 
+  rdfs:isDefinedBy met: .
+  
