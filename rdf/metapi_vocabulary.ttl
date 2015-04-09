@@ -59,6 +59,14 @@ met:MetApiDataCollection
     vs:term_status "testing" ; 
     rdfs:isDefinedBy met: .
 
+met:MetApiDataValue
+    a rdfs:Class ;
+    rdfs:label "metapi data value" ;
+    rdfs:comment "A data value returned by the metno/metapi." ;
+    rdfs:subClassOf schema:DataSet ;
+    vs:term_status "testing" ; 
+    rdfs:isDefinedBy met: .
+
 
 ############################################################################
 # Response Properties
@@ -273,14 +281,6 @@ met:validTime
 ############################################################################
 # Data Value and Properties
 ############################################################################
-
-met:MetApiDataValue
-    a rdfs:Class ;
-    rdfs:label "metapi data value" ;
-    rdfs:comment "A data value returned by the metno/metapi." ;
-    rdfs:subClassOf schema:DataSet ;
-    vs:term_status "testing" ; 
-    rdfs:isDefinedBy met: .
 
 met:value
   a rdf:Property ;
