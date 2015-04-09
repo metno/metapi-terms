@@ -39,7 +39,7 @@ met:MetApiError
     a rdfs:Class ;
     rdfs:label "metapi error" ;
     rdfs:comment "An error message from the metno/metapi." ;
-    rdfs:subClassOf schema:error ;
+    rdfs:subClassOf met:MetApiResponse ;
     vs:term_status "testing" ; 
     rdfs:isDefinedBy met: .
 
@@ -121,7 +121,6 @@ met:itemsPerPage
   vs:term_status "testing" ; 
   rdfs:isDefinedBy met: .
 
-
 met:startOffset
   a rdf:Property ;
   rdfs:label "start offset" ;
@@ -163,6 +162,17 @@ met:previousLink
     URI to load the previous set of data. It can be used in conjunction with 
     currentItemCount, startOffet, and totalItemCount to page through the data
     in a result set. 
+  """ ;
+  rdfs:domain met:MetApiResponse ;
+  vs:term_status "testing" ; 
+  rdfs:isDefinedBy met: .
+
+met:currentLink
+  a rdf:Property ;
+  rdfs:label "current link" ;
+  rdfs:comment """
+    The current link indicates the URI that was used to generate the current
+    API response. It is primarily useful for debugging purposes. 
   """ ;
   rdfs:domain met:MetApiResponse ;
   vs:term_status "testing" ; 
@@ -216,6 +226,18 @@ met:errorReason
   rdfs:comment """
     A unique text identifier for the error. Different from errorCode in that this 
     is not an HTTP response code.
+  """ ;
+  rdfs:domain met:MetApiErrorDetail ;
+  vs:term_status "testing" ; 
+  rdfs:isDefinedBy met: .
+
+
+met:errorHelp
+  a rdf:Property ;
+  rdfs:label "error help" ;
+  rdfs:comment """
+    Information that may be useful to help the user of the API to fix the error
+    or avoid repeating the issue in future.
   """ ;
   rdfs:domain met:MetApiErrorDetail ;
   vs:term_status "testing" ; 
