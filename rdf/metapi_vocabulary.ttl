@@ -5,6 +5,7 @@
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
 @prefix dct: <http://purl.org/dc/terms/> .
+@prefix sml: <http://schemas.opengis.net/sensorML/2.0/> .
 @prefix geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> .
 @prefix un: <http://www.w3.org/2007/ont/unit#> .
 @prefix vs: <http://www.w3.org/2003/06/sw-vocab-status/ns#> .
@@ -67,6 +68,18 @@ met:MetApiDataValue
     vs:term_status "testing" ; 
     rdfs:isDefinedBy met: .
 
+met:SensorPlatform
+    a rdfs:Class, sml:platform ;
+    rdfs:label "sensor platform" ;
+    rdfs:comment """
+      An Entity to which other Entities can be attached - particuarly Sensors
+      and other Platforms. For example, a post might act as the Platform, a
+      bouy might act as a Platform, or a fish might act as a Platform for an
+      attached sensor.
+    """ ;
+    vs:term_status "testing" ; 
+    rdfs:isDefinedBy met: .
+
 
 ############################################################################
 # Response Properties
@@ -93,7 +106,7 @@ met:createdAt
   rdfs:label "created at" ;
   rdfs:comment "The time at which the document was created." ;
   rdfs:domain met:MetApiResponse ;
-  rfds:range schema:DateTime ;
+  rdfs:range schema:DateTime ;
   vs:term_status "testing" ; 
   rdfs:isDefinedBy met: .
 
@@ -277,7 +290,7 @@ met:refTime
   rdfs:label "reference time" ;
   rdfs:comment "The reference time of the data values(s)" ;
   rdfs:domain met:MetApiDataSet ;
-  rfds:range schema:DateTime ;
+  rdfs:range schema:DateTime ;
   vs:term_status "testing" ; 
   rdfs:isDefinedBy met: .
 
@@ -286,7 +299,7 @@ met:validTime
   rdfs:label "valid time" ;
   rdfs:comment "The source of the data values(s)" ;
   rdfs:domain met:MetApiDataSet ;
-  rfds:range schema:DateTime ;
+  rdfs:range schema:DateTime ;
   vs:term_status "testing" ; 
   rdfs:isDefinedBy met: .
 
@@ -295,7 +308,7 @@ met:validTime
   rdfs:label "valid time" ;
   rdfs:comment "The source of the data values(s)" ;
   rdfs:domain met:MetApiDataSet ;
-  rfds:range schema:DateTime ;
+  rdfs:range schema:DateTime ;
   vs:term_status "testing" ; 
   rdfs:isDefinedBy met: .
 
@@ -317,7 +330,7 @@ met:unit
   rdfs:label "unit of measure" ;
   rdfs:comment "The unit of measure for the data value. If not set, this is assumed (by default) to be the SI unit of the physical dimension of the value" ;
   rdfs:domain met:MetApiDataValue ;
-  rfds:range schema:string ;
+  rdfs:range schema:string ;
   vs:term_status "testing" ; 
   rdfs:isDefinedBy met: .
 
@@ -326,7 +339,37 @@ met:confidenceCode
   rdfs:label "confidence code" ;
   rdfs:comment "A code which indicates the confidence of the issuing authority in the data value" ;
   rdfs:domain met:MetApiDataValue ;
-  rfds:range schema:integer ;
+  rdfs:range schema:integer ;
+  vs:term_status "testing" ; 
+  rdfs:isDefinedBy met: .
+
+
+############################################################################
+# Sensor Platform Properties
+############################################################################
+
+met:country
+  a rdf:Property, schema:Country ;
+  rdfs:label "country" ;
+  rdfs:comment "A country" ;
+  rdfs:domain met:SensorPlatform ;
+  vs:term_status "testing" ; 
+  rdfs:isDefinedBy met: .
+
+met:municipality
+  a rdf:Property, schema:AdministrativeArea ;
+  rdfs:label "municipality" ;
+  rdfs:comment "A municipality" ;
+  rdfs:domain met:SensorPlatform ;
+  vs:term_status "testing" ; 
+  rdfs:isDefinedBy met: .
+
+met:sourceName
+  a rdf:Property ;
+  rdfs:label "source name" ;
+  rdfs:comment "A municipality" ;
+  rdfs:domain met:SensorPlatform ;
   vs:term_status "testing" ; 
   rdfs:isDefinedBy met: .
   
+ stationid  |         lat         |         lon         |  hs  |  hv  |   hp    | maxspeed |    short_name    | wmono | ontologyid |      fromtime       |       totime                 
