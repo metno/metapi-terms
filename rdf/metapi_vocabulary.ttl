@@ -28,7 +28,7 @@
 # Classes
 ############################################################################
 
-met:MetApiResponse
+met:Response
     a rdfs:Class ;
     rdfs:label "metapi response" ;
     rdfs:comment "A response from the metno/metapi." ;
@@ -36,15 +36,15 @@ met:MetApiResponse
     vs:term_status "testing" ; 
     rdfs:isDefinedBy met: .
 
-met:MetApiError
+met:Error
     a rdfs:Class ;
     rdfs:label "metapi error" ;
     rdfs:comment "An error message from the metno/metapi." ;
-    rdfs:subClassOf met:MetApiResponse ;
+    rdfs:subClassOf met:Response ;
     vs:term_status "testing" ; 
     rdfs:isDefinedBy met: .
 
-met:MetApiErrorDetail
+met:ErrorDetail
     a rdfs:Class ;
     rdfs:label "metapi error" ;
     rdfs:comment "An error message from the metno/metapi." ;
@@ -52,7 +52,7 @@ met:MetApiErrorDetail
     vs:term_status "testing" ; 
     rdfs:isDefinedBy met: .
 
-met:MetApiDataCollection
+met:DataCollection
     a rdfs:Class ;
     rdfs:label "metapi data collection" ;
     rdfs:comment "A data collection returned by the metno/metapi." ;
@@ -60,11 +60,38 @@ met:MetApiDataCollection
     vs:term_status "testing" ; 
     rdfs:isDefinedBy met: .
 
-met:MetApiDataValue
+met:DataCollection
+    a rdfs:Class ;
+    rdfs:label "metapi data collection" ;
+    rdfs:comment "A data collection returned by the metno/metapi." ;
+    rdfs:subClassOf schema:DataSet ;
+    vs:term_status "testing" ; 
+    rdfs:isDefinedBy met: .
+
+met:DataSet
+    a rdfs:Class ;
+    rdfs:label "metapi data set" ;
+    rdfs:comment "A data set returned by the metno/metapi." ;
+    rdfs:subClassOf schema:DataSet ;
+    vs:term_status "testing" ; 
+    rdfs:isDefinedBy met: .
+
+met:DataValue
     a rdfs:Class ;
     rdfs:label "metapi data value" ;
     rdfs:comment "A data value returned by the metno/metapi." ;
     rdfs:subClassOf schema:DataSet ;
+    vs:term_status "testing" ; 
+    rdfs:isDefinedBy met: .
+
+met:Source
+    a rdfs:Class ;
+    rdfs:label "metapi source" ;
+    rdfs:comment """
+      An entity which is a source of data values in the MET API. For example
+      a Sensorplatform (Meteorologial Observation Station, a Person (observer)
+      or an Algorithm (forecast model).
+    """ ;
     vs:term_status "testing" ; 
     rdfs:isDefinedBy met: .
 
@@ -77,6 +104,7 @@ met:SensorPlatform
       bouy might act as a Platform, or a fish might act as a Platform for an
       attached sensor.
     """ ;
+    rdfs:subClassOf met:Source ;
     vs:term_status "testing" ; 
     rdfs:isDefinedBy met: .
 
@@ -89,7 +117,7 @@ met:apiVersion
   a rdf:Property ;
   rdfs:label "api version" ;
   rdfs:comment "The version of the API that generated this response." ;
-  rdfs:domain met:MetApiResponse ;
+  rdfs:domain met:Response ;
   vs:term_status "testing" ; 
   rdfs:isDefinedBy met: .
 
@@ -97,7 +125,7 @@ met:license
   a rdf:Property, schema:license ;
   rdfs:label "license" ;
   rdfs:comment "A license that applies to this content, typically indicated by URL." ;
-  rdfs:domain met:MetApiResponse ;
+  rdfs:domain met:Response ;
   vs:term_status "testing" ; 
   rdfs:isDefinedBy met: .
 
@@ -105,7 +133,7 @@ met:createdAt
   a rdf:Property ;
   rdfs:label "created at" ;
   rdfs:comment "The time at which the document was created." ;
-  rdfs:domain met:MetApiResponse ;
+  rdfs:domain met:Response ;
   rdfs:range schema:DateTime ;
   vs:term_status "testing" ; 
   rdfs:isDefinedBy met: .
@@ -114,7 +142,7 @@ met:queryTime
   a rdf:Property ;
   rdfs:label "query time" ;
   rdfs:comment "The time, in seconds, that this document took to generate." ;
-  rdfs:domain met:MetApiResponse ;
+  rdfs:domain met:Response ;
   vs:term_status "testing" ; 
   rdfs:isDefinedBy met: .
 
@@ -122,7 +150,7 @@ met:currentItemCount
   a rdf:Property ;
   rdfs:label "current item count" ;
   rdfs:comment "The current number of items in this result set." ;
-  rdfs:domain met:MetApiResponse ;
+  rdfs:domain met:Response ;
   vs:term_status "testing" ; 
   rdfs:isDefinedBy met: .
 
@@ -130,7 +158,7 @@ met:itemsPerPage
   a rdf:Property ;
   rdfs:label "items per page" ;
   rdfs:comment "The maximum number of items in a result set." ;
-  rdfs:domain met:MetApiResponse ;
+  rdfs:domain met:Response ;
   vs:term_status "testing" ; 
   rdfs:isDefinedBy met: .
 
@@ -138,7 +166,7 @@ met:startOffset
   a rdf:Property ;
   rdfs:label "start offset" ;
   rdfs:comment "The offset of the first item in the result set. The MET API uses a zero-base index." ;
-  rdfs:domain met:MetApiResponse ;
+  rdfs:domain met:Response ;
   vs:term_status "testing" ; 
   rdfs:isDefinedBy met: .
 
@@ -150,7 +178,7 @@ met:totalItemCount
     1000 observations, the response may only contain 100 observations, but the
     totalItemcount would be 100.
   """ ;
-  rdfs:domain met:MetApiResponse ;
+  rdfs:domain met:Response ;
   vs:term_status "testing" ; 
   rdfs:isDefinedBy met: .
 
@@ -163,7 +191,7 @@ met:nextLink
     currentItemCount, startOffet, and totalItemCount to page through the data
     in a result set. 
   """ ;
-  rdfs:domain met:MetApiResponse ;
+  rdfs:domain met:Response ;
   vs:term_status "testing" ; 
   rdfs:isDefinedBy met: .
 
@@ -176,7 +204,7 @@ met:previousLink
     currentItemCount, startOffet, and totalItemCount to page through the data
     in a result set. 
   """ ;
-  rdfs:domain met:MetApiResponse ;
+  rdfs:domain met:Response ;
   vs:term_status "testing" ; 
   rdfs:isDefinedBy met: .
 
@@ -187,10 +215,13 @@ met:currentLink
     The current link indicates the URI that was used to generate the current
     API response. It is primarily useful for debugging purposes. 
   """ ;
-  rdfs:domain met:MetApiResponse ;
+  rdfs:domain met:Response ;
   vs:term_status "testing" ; 
   rdfs:isDefinedBy met: .
 
+# met:data?
+
+# met:error?
 
 ############################################################################
 # Error Properties
@@ -204,10 +235,9 @@ met:errorCode
     the HTTP response code. If there are multiple errors, errorCode will be the 
     code for the first error.
   """ ;
-  rdfs:domain met:MetApiError ;
+  rdfs:domain met:Error ;
   vs:term_status "testing" ; 
   rdfs:isDefinedBy met: .
-
 
 met:errorMessage
   a rdf:Property ;
@@ -217,7 +247,7 @@ met:errorMessage
     multiple errors, errorMessage will be the message pertaining to the first
     error.
   """ ;
-  rdfs:domain met:MetApiError, met:MetApiErrorDetail ;
+  rdfs:domain met:Error, met:ErrorDetail ;
   vs:term_status "testing" ; 
   rdfs:isDefinedBy met: .
 
@@ -229,7 +259,7 @@ met:errorDetails
     service has returned multiple errors, each element in the errorDetails 
     collection represents a different error.
   """ ;
-  rdfs:domain met:MetApiError ;
+  rdfs:domain met:Error ;
   vs:term_status "testing" ; 
   rdfs:isDefinedBy met: .
 
@@ -240,7 +270,7 @@ met:errorReason
     A unique text identifier for the error. Different from errorCode in that this 
     is not an HTTP response code.
   """ ;
-  rdfs:domain met:MetApiErrorDetail ;
+  rdfs:domain met:ErrorDetail ;
   vs:term_status "testing" ; 
   rdfs:isDefinedBy met: .
 
@@ -252,20 +282,20 @@ met:errorHelp
     Information that may be useful to help the user of the API to fix the error
     or avoid repeating the issue in future.
   """ ;
-  rdfs:domain met:MetApiErrorDetail ;
+  rdfs:domain met:ErrorDetail ;
   vs:term_status "testing" ; 
   rdfs:isDefinedBy met: .
 
 
 ############################################################################
-# Dataset Properties
+# DataCollection Properties
 ############################################################################
 
 met:source
   a rdf:Property ;
   rdfs:label "data source" ;
   rdfs:comment "The source of the data values(s)" ;
-  rdfs:domain met:MetApiDataSet ;
+  rdfs:domain met:DataSet ;
   vs:term_status "testing" ; 
   rdfs:isDefinedBy met: .
 
@@ -273,7 +303,8 @@ met:geo
   a rdf:Property ;
   rdfs:label "geo" ;
   rdfs:comment "The geographical location of the data values(s)" ;
-  rdfs:domain met:MetApiDataSet ;
+  rdfs:domain met:DataSet ,
+    met:SensorPlatform ;
   vs:term_status "testing" ; 
   rdfs:isDefinedBy met: .
 
@@ -281,7 +312,8 @@ met:level
   a rdf:Property ;
   rdfs:label "level" ;
   rdfs:comment "The spatial level of the data values(s)" ;
-  rdfs:domain met:MetApiDataSet ;
+  rdfs:domain met:DataSet ,
+    met:SensorPlatform ;
   vs:term_status "testing" ; 
   rdfs:isDefinedBy met: .
 
@@ -289,7 +321,7 @@ met:refTime
   a rdf:Property ;
   rdfs:label "reference time" ;
   rdfs:comment "The reference time of the data values(s)" ;
-  rdfs:domain met:MetApiDataSet ;
+  rdfs:domain met:DataSet ;
   rdfs:range schema:DateTime ;
   vs:term_status "testing" ; 
   rdfs:isDefinedBy met: .
@@ -297,21 +329,29 @@ met:refTime
 met:validTime
   a rdf:Property ;
   rdfs:label "valid time" ;
-  rdfs:comment "The source of the data values(s)" ;
-  rdfs:domain met:MetApiDataSet ;
+  rdfs:comment "The time at which the data is valid" ;
+  rdfs:domain met:DataSet ;
   rdfs:range schema:DateTime ;
   vs:term_status "testing" ; 
   rdfs:isDefinedBy met: .
 
-met:validTime
+met:validTimeFrom
+  a rdf:Property ;
+  rdfs:label "valid time from" ;
+  rdfs:comment "The point in time from which the data is valid (inclusive)" ;
+  rdfs:domain met:SensorPlatform ;
+  rdfs:range schema:DateTime ;
+  vs:term_status "testing" ; 
+  rdfs:isDefinedBy met: .
+
+met:validTimeTo
   a rdf:Property ;
   rdfs:label "valid time" ;
-  rdfs:comment "The source of the data values(s)" ;
-  rdfs:domain met:MetApiDataSet ;
+  rdfs:comment "The point int time to which the data is valid (exclusive)" ;
+  rdfs:domain met:SensorPlatform ;
   rdfs:range schema:DateTime ;
   vs:term_status "testing" ; 
   rdfs:isDefinedBy met: .
-
 
 ############################################################################
 # Data Value and Properties
@@ -321,7 +361,7 @@ met:value
   a rdf:Property ;
   rdfs:label "data value" ;
   rdfs:comment "The data value" ;
-  rdfs:domain met:MetApiDataValue ;
+  rdfs:domain met:DataValue ;
   vs:term_status "testing" ; 
   rdfs:isDefinedBy met: .
 
@@ -329,7 +369,7 @@ met:unit
   a rdf:Property ;
   rdfs:label "unit of measure" ;
   rdfs:comment "The unit of measure for the data value. If not set, this is assumed (by default) to be the SI unit of the physical dimension of the value" ;
-  rdfs:domain met:MetApiDataValue ;
+  rdfs:domain met:DataValue ;
   rdfs:range schema:string ;
   vs:term_status "testing" ; 
   rdfs:isDefinedBy met: .
@@ -338,8 +378,31 @@ met:confidenceCode
   a rdf:Property ;
   rdfs:label "confidence code" ;
   rdfs:comment "A code which indicates the confidence of the issuing authority in the data value" ;
-  rdfs:domain met:MetApiDataValue ;
+  rdfs:domain met:DataValue ;
   rdfs:range schema:integer ;
+  vs:term_status "testing" ; 
+  rdfs:isDefinedBy met: .
+
+
+############################################################################
+# Soure Properties
+############################################################################
+
+met:sourceId
+  a rdf:Property ;
+  rdfs:label "source id" ;
+  rdfs:comment "The internal MET API source ID of the data source." ;
+  rdfs:domain met:Source ;
+  rdfs:range schema:string ;
+  vs:term_status "testing" ; 
+  rdfs:isDefinedBy met: .
+
+met:sourceName
+  a rdf:Property ;
+  rdfs:label "source name" ;
+  rdfs:comment "The MET API name of the data source." ;
+  rdfs:domain met:Source ;
+  rdfs:range schema:string ;
   vs:term_status "testing" ; 
   rdfs:isDefinedBy met: .
 
@@ -349,7 +412,8 @@ met:confidenceCode
 ############################################################################
 
 met:country
-  a rdf:Property, schema:Country ;
+  a rdf:Property,
+    schema:Country ;
   rdfs:label "country" ;
   rdfs:comment "A country" ;
   rdfs:domain met:SensorPlatform ;
@@ -357,19 +421,39 @@ met:country
   rdfs:isDefinedBy met: .
 
 met:municipality
-  a rdf:Property, schema:AdministrativeArea ;
+  a rdf:Property,
+    schema:AdministrativeArea ;
   rdfs:label "municipality" ;
   rdfs:comment "A municipality" ;
   rdfs:domain met:SensorPlatform ;
   vs:term_status "testing" ; 
   rdfs:isDefinedBy met: .
 
-met:sourceName
+met:wmoNumber
   a rdf:Property ;
-  rdfs:label "source name" ;
-  rdfs:comment "A municipality" ;
+  rdfs:label "wmo number" ;
+  rdfs:comment "The WMO Number of the data source, if it has one." ;
+  rdfs:domain met:SensorPlatform ;
+  rdfs:range schema:integer ;
+  vs:term_status "testing" ; 
+  rdfs:isDefinedBy met: .
+
+met:platformStatus
+  a rdf:Property ;
+  rdfs:label "platform status" ;
+  rdfs:comment "The operating status of a sensor platform." ;
+  rdfs:domain met:SensorPlatform ;
+  vs:term_status "testing" ; 
+  rdfs:isDefinedBy met: .
+
+met:maxVelocity
+  a rdf:Property ;
+  rdfs:label "max velocity" ;
+  rdfs:comment "Maximum velocity of the data object." ;
   rdfs:domain met:SensorPlatform ;
   vs:term_status "testing" ; 
   rdfs:isDefinedBy met: .
   
- stationid  |         lat         |         lon         |  hs  |  hv  |   hp    | maxspeed |    short_name    | wmono | ontologyid |      fromtime       |       totime                 
+# Since GeoJSON-LD is not yet complete, we will probably need to specify our own definition of
+# Point, LineString, Polygon, etc.
+# See http://geojson.org/vocab
